@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'broadcast',
-    '__version' => '0.0.1',
+    '__version' => '0.0.2',
     '__git' => 'git@github.com:getmim/broadcast.git',
     '__license' => 'MIT',
     '__author' => [
@@ -114,7 +114,7 @@ return [
                     'type' => 'object',
                     'model' => [
                         'name' => 'LibUser\\Library\\Fetcher',
-                        'field' => 'user',
+                        'field' => 'id',
                         'type' => 'number'
                     ],
                     'format' => 'user'
@@ -144,7 +144,7 @@ return [
                     'type' => 'object',
                     'model' => [
                         'name' => 'LibUser\\Library\\Fetcher',
-                        'field' => 'user',
+                        'field' => 'id',
                         'type' => 'number'
                     ],
                     'format' => 'user'
@@ -167,7 +167,7 @@ return [
                     'type' => 'object',
                     'model' => [
                         'name' => 'LibUser\\Library\\Fetcher',
-                        'field' => 'user',
+                        'field' => 'id',
                         'type' => 'number'
                     ],
                     'format' => 'user'
