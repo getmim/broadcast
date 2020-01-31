@@ -54,13 +54,22 @@ return [
                 ],
                 'index' => 6000
             ],
+            'fail' => [
+                'type' => 'INT',
+                'attrs' => [
+                    'unsigned' => true,
+                    'null' => false,
+                    'default' => 0
+                ],
+                'index' => 7000
+            ],
             'total' => [
                 'type' => 'INT',
                 'attrs' => [
                     'unsigned' => true,
                     'null' => false,
                 ],
-                'index' => 7000
+                'index' => 8000
             ],
             'updated' => [
                 'type' => 'TIMESTAMP',

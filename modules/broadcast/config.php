@@ -93,6 +93,9 @@ return [
                 'sent' => [
                     'type' => 'number'
                 ],
+                'fail' => [
+                    'type' => 'number'
+                ],
                 'total' => [
                     'type' => 'number'
                 ],
@@ -204,7 +207,7 @@ return [
                         'name' => 'Broadcast\\Model\\Broadcast',
                         'field' => 'id',
                         'type' => 'number'
-                    ]
+                    ],
                     'format' => 'broadcast'
                 ],
                 'contact' => [
