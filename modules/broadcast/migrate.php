@@ -71,6 +71,13 @@ return [
                 ],
                 'index' => 8000
             ],
+            'time' => [
+                'type' => 'DATETIME',
+                'attrs' => [
+                    'null' => false
+                ],
+                'index' => 9000
+            ],
             'updated' => [
                 'type' => 'TIMESTAMP',
                 'attrs' => [
@@ -280,7 +287,7 @@ return [
                 'attrs' => [
                     'unsigned' => true,
                     'null' => false,
-                    'default' => 1
+                    'default' => 2
                 ],
                 'index' => 5000
             ],

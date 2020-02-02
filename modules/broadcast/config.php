@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'broadcast',
-    '__version' => '0.0.2',
+    '__version' => '0.1.0',
     '__git' => 'git@github.com:getmim/broadcast.git',
     '__license' => 'MIT',
     '__author' => [
@@ -26,6 +26,12 @@ return [
             ],
             [
                 'lib-enum' => NULL
+            ],
+            [
+                'lib-worker' => NULL
+            ],
+            [
+                'lib-sms' => NULL 
             ]
         ],
         'optional' => []
@@ -35,35 +41,30 @@ return [
             'Broadcast\\Model' => [
                 'type' => 'file',
                 'base' => 'modules/broadcast/model'
+            ],
+            'Broadcast\\Library' => [
+                'type' => 'file',
+                'base' => 'modules/broadcast/library'
+            ],
+            'Broadcast\\Controller' => [
+                'type' => 'file',
+                'base' => 'modules/broadcast/controller'
             ]
         ],
         'files' => []
     ],
     'libEnum' => [
         'enums' => [
-            'broadcast.status' => [
-                0 => 'Deleted',
-                1 => 'Pending',
-                2 => 'Partially Sent',
-                3 => 'Done'
-            ],
-            'broadcast-contact.status' => [
-                0 => 'Deleted',
-                1 => 'Active'
-            ],
-            'broadcast-item.status' => [
-                0 => 'Canceled',
-                1 => 'Failed',
-                2 => 'Pending',
-                3 => 'Done'
-            ]
+            'broadcast.status' => ['Deleted','Pending','Partially Sent','Done'],
+            'broadcast-contact.status' => ['Deleted','Active'],
+            'broadcast-item.status' => ['Canceled','Failed','Pending','Done']
         ]
     ],
     'libFormatter' => [
         'formats' => [
             'broadcast' => [
                 'id' => [
-                    'type' => 'number',
+                    'type' => 'number'
                 ],
                 'user' => [
                     'type' => 'object',
@@ -99,6 +100,9 @@ return [
                 'total' => [
                     'type' => 'number'
                 ],
+                'time' => [
+                    'type' => 'date'
+                ],
                 'updated' => [
                     'type' => 'date'
                 ],
@@ -108,7 +112,7 @@ return [
             ],
             'broadcast-contact' => [
                 'id' => [
-                    'type' => 'number',
+                    'type' => 'number'
                 ],
                 'user' => [
                     'type' => 'object',
@@ -129,6 +133,21 @@ return [
                     'type' => 'enum',
                     'enum' => 'broadcast-contact.status'
                 ],
+                'group' => [
+                    'type' => 'chain',
+                    'chain' => [
+                        'model' => [
+                            'name' => 'Broadcast\\Model\\BroadcastContactGroupChain',
+                            'field' => 'contact'
+                        ],
+                        'identity' => 'group'
+                    ],
+                    'model' => [
+                        'name' => 'Broadcast\\Model\\BroadcastContactGroup',
+                        'field' => 'id'
+                    ],
+                    'format' => 'broadcast-contact-group'
+                ],
                 'updated' => [
                     'type' => 'date'
                 ],
@@ -138,7 +157,7 @@ return [
             ],
             'broadcast-contact-group' => [
                 'id' => [
-                    'type' => 'number',
+                    'type' => 'number'
                 ],
                 'user' => [
                     'type' => 'object',
@@ -161,7 +180,7 @@ return [
             ],
             'broadcast-contact-group-chain' => [
                 'id' => [
-                    'type' => 'number',
+                    'type' => 'number'
                 ],
                 'user' => [
                     'type' => 'object',
@@ -199,7 +218,7 @@ return [
             ],
             'broadcast-item' => [
                 'id' => [
-                    'type' => 'number',
+                    'type' => 'number'
                 ],
                 'broadcast' => [
                     'type' => 'object',
@@ -235,6 +254,28 @@ return [
                 'created' => [
                     'type' => 'date'
                 ]
+            ]
+        ]
+    ],
+    'routes' => [
+        'tool' => [
+            'toolBroadcastWorkerAdder' => [
+                'path' => [
+                    'value' => 'broadcast item adder (:id)',
+                    'params' => [
+                        'id' => 'number'
+                    ]
+                ],
+                'handler' => 'Broadcast\\Controller\\Cli::itemAdder'
+            ],
+            'toolBroadcastItemRun' => [
+                'path' => [
+                    'value' => 'broadcast item run (:id)',
+                    'params' => [
+                        'id' => 'number'
+                    ]
+                ],
+                'handler' => 'Broadcast\\Controller\\Cli::itemRun'
             ]
         ]
     ]
